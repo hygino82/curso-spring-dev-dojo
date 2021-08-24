@@ -3,9 +3,12 @@ package academy.devdojo.springboot2.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,9 +32,14 @@ public class AnimeController {
 		log.info(dateUtil.formatLocalDateTimeToDatabasestyle(LocalDateTime.now()));
 		return ResponseEntity.ok(animeService.listAll());
 	}
-	
-	@GetMapping(path ="/{id}")
-	public ResponseEntity<Anime> findById(@PathVariable Long id) {	
+
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<Anime> findById(@PathVariable Long id) {
 		return ResponseEntity.ok(animeService.findById(id));
+	}
+
+	@PostMapping
+	public ResponseEntity<Anime> save(@RequestBody Anime anime){
+		return new ResponseEntity<>(animeService.save(anime),HttpStatus.CREATED);
 	}
 }
