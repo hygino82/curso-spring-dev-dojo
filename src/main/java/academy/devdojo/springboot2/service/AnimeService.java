@@ -17,7 +17,7 @@ public class AnimeService {
 	private static List<Anime> animes;
 
 	static {
-		animes = new ArrayList<>(List.of(new Anime(1L, "DBZ"), new Anime(2L, "Naruto")));
+		animes = new ArrayList<>(List.of(new Anime(1L, "DBZ"), new Anime(2L, "Naruto"), new Anime(3L, "Claymore")));
 	}
 
 	public List<Anime> listAll() {
@@ -33,6 +33,10 @@ public class AnimeService {
 		anime.setId(ThreadLocalRandom.current().nextLong(3, 1000000));
 		animes.add(anime);
 		return anime;
+	}
+
+	public void delete(Long id) {
+		animes.remove(findById(id));
 	}
 
 }
