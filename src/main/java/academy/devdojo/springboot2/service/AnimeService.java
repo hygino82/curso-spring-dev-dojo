@@ -17,7 +17,8 @@ public class AnimeService {
 	private static List<Anime> animes;
 
 	static {
-		animes = new ArrayList<>(List.of(new Anime(1L, "DBZ"), new Anime(2L, "Naruto"), new Anime(3L, "Claymore")));
+		animes = new ArrayList<>(List.of(new Anime(1L, "DBZ"), new Anime(2L, "Naruto"), new Anime(3L, "Claymore"),
+				new Anime(4L, "Boruto")));
 	}
 
 	public List<Anime> listAll() {
@@ -37,6 +38,11 @@ public class AnimeService {
 
 	public void delete(Long id) {
 		animes.remove(findById(id));
+	}
+
+	public void replace(Anime anime) {
+		delete(anime.getId());
+		animes.add(anime);	
 	}
 
 }
