@@ -3,6 +3,8 @@ package academy.devdojo.springboot2.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,7 +51,7 @@ public class AnimeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody){
+	public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
 		return new ResponseEntity<>(animeService.save(animePostRequestBody),HttpStatus.CREATED);
 	}
 	
