@@ -42,32 +42,37 @@ public class AnimeController {
 		return ResponseEntity.ok(animeService.listAll(pageable));
 	}
 
+	@GetMapping(path = "/all")
+	public ResponseEntity<List<Anime>> listAll() {
+		log.info(dateUtil.formatLocalDateTimeToDatabasestyle(LocalDateTime.now()));
+		return ResponseEntity.ok(animeService.listAllNonPageable());
+	}
+
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<Anime> findById(@PathVariable Long id) {
 		return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
 	}
-	
-	@GetMapping(path = "/find")//requestparam evita ambiguidade
+
+	@GetMapping(path = "/find") // requestparam evita ambiguidade
 	public ResponseEntity<List<Anime>> findByName(@RequestParam(required = false) String name) {
 		return ResponseEntity.ok(animeService.findByName(name));
 	}
 
 	@PostMapping
-	public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
-		return new ResponseEntity<>(animeService.save(animePostRequestBody),HttpStatus.CREATED);
+	public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody) {
+		return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id){
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		animeService.delete(id);
-		return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<Void> replace(@RequestBody AnimePutRequestBody animePutRequestBody){
+	public ResponseEntity<Void> replace(@RequestBody AnimePutRequestBody animePutRequestBody) {
 		animeService.replace(animePutRequestBody);
-		return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
-	
+
 }
